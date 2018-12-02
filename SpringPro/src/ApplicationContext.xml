@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:P="http://www.springframework.org/schema/P"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans                      http://www.springframework.org/schema/beans/spring-beans.xsd                                       http://www.springframework.org/schema/context                                        http://www.springframework.org/schema/context/spring-context.xsd                                       http://www.springframework.org/schema/mvc                                       http://www.springframework.org/schema/mvc/spring-mvc.xsd                                     http://www.springframework.org/schema/tx                                      http://www.springframework.org/schema/tx/spring-tx.xsd                                     http://www.springframework.org/schema/aop                                     http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-autowire="byName">
+
+	<!-- ioc入门 -->
+	<bean id="user1" class="com.bin.javabase.bean.User"
+		name="user_name" scope="singleton" />
+
+	<!-- 使用静态工厂创建 -->
+	<bean id="user2" class="com.bin.javabase.bean.UserFactory"
+		factory-method="createUser" />
+
+	<!-- 使用实例工厂创建 -->
+	<!-- 创建工厂 -->
+	<bean id="instance_factoy"
+		class="com.bin.javabase.bean.UserFactory" />
+	<bean id="user3" factory-bean="instance_factoy"
+		factory-method="getUser" />
+
+	<!-- 使用有参数构造注入属性 -->
+	<bean id="person" class="com.bin.javabase.bean.Person">
+		<constructor-arg name="name" value="Leslie">
+		</constructor-arg>
+		<constructor-arg name="age" value="10"></constructor-arg>
+		<!-- 使用有set方法注入属性 -->
+		<property name="age" value="18"></property>
+	</bean>
+
+	<!-- 注入复杂类型属性值 -->
+	<bean id="collection" class="com.bin.javabase.bean.MyCollection">
+		<!-- 数组 -->
+		<property name="array">
+			<list>
+				<value>李玮斌</value>
+				<value>李玮斌</value>
+				<value>李玮斌</value>
+			</list>
+		</property>
+		<!-- list -->
+		<property name="list">
+			<list>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+			</list>
+		</property>
+		<!-- map -->
+		<property name="map">
+			<map>
+				<entry key="我是键" value="我是值"></entry>
+			</map>
+		</property>
+		<!-- properties -->
+		<property name="properties">
+			<props>
+				<prop key="driverclass">com.mysql.jdbc.Driver</prop>
+				<prop key="user">root</prop>
+			</props>
+		</property>
+	</bean>
+
+
+</beans>

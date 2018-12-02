@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:P="http://www.springframework.org/schema/P"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans                      http://www.springframework.org/schema/beans/spring-beans.xsd                                       http://www.springframework.org/schema/context                                        http://www.springframework.org/schema/context/spring-context.xsd                                       http://www.springframework.org/schema/mvc                                       http://www.springframework.org/schema/mvc/spring-mvc.xsd                                     http://www.springframework.org/schema/tx                                      http://www.springframework.org/schema/tx/spring-tx.xsd                                     http://www.springframework.org/schema/aop                                     http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-autowire="byName">
+
+	<!-- 配置对象 -->
+	<bean id="book" class="com.bin.javabase.aop.Book"></bean>
+	<bean id="myBook" class="com.bin.javabase.aop.MyBook"></bean>
+
+	<!-- 配置aop操作 -->
+	<aop:config>
+		<!-- 配置切入点 -->
+		<aop:pointcut
+			expression="execution(* com.bin.javabase.aop.Book.add(..))"
+			id="pointcutAdd" />
+		<!-- 配置切面 -->
+		<aop:aspect ref="myBook">
+			<!-- 配置增强类型 -->
+			<aop:before method="before" pointcut-ref="pointcutAdd" />
+			<aop:after method="after" pointcut-ref="pointcutAdd" />
+			<aop:around method="around" pointcut-ref="pointcutAdd" />
+		</aop:aspect>
+		<aop:aspect />
+
+
+	</aop:config>
+</beans>
